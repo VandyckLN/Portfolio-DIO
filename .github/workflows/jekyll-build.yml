@@ -1,0 +1,27 @@
+name: Jekyll Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Create docs directory if not exists
+        run: mkdir -p docs
+
+      - name: Build site
+        run: bundle exec jekyll build
